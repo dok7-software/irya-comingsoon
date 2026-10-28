@@ -5,13 +5,13 @@ import { footer, socialLinks } from "@/lib/content";
 
 /**
  * Footer inferior.
- * Desktop: 607px de alto, fila de 1200 × 333 con 80px entre columnas.
+ * Desktop: fila de 1200px con 80px de padding vertical con 80px entre columnas.
  * Tablet: fila de 436px con extremos separados. Phone: columna con padding 80/60/49.
  */
 export function Footer() {
   return (
-    <footer data-nav-theme="light" className="w-full overflow-clip bg-primary-50 desktop:h-151.75">
-      <div className="flex flex-col gap-15 px-15 pt-20 pb-12.25 tablet:h-109 tablet:flex-row tablet:items-center tablet:justify-between tablet:gap-12 tablet:p-5 desktop:mx-auto desktop:h-83.25 desktop:w-300 desktop:justify-center desktop:gap-20 desktop:p-0">
+    <footer data-nav-theme="light" className="w-full overflow-clip bg-primary-50">
+      <div className="flex flex-col gap-15 px-15 pt-20 pb-12.25 tablet:h-109 tablet:flex-row tablet:items-center tablet:justify-between tablet:gap-12 tablet:p-5 desktop:mx-auto desktop:h-auto desktop:w-300 desktop:justify-center desktop:gap-20 desktop:px-0 desktop:py-20">
         <div className="flex flex-col items-center gap-5 text-center tablet:flex-1">
           <Logo className="w-24.5 text-deep-violet desktop:w-32.5" />
           <p className="font-heading text-h4 font-medium desktop:text-h4-lg">{footer.tagline}</p>
