@@ -1,59 +1,101 @@
 @import "tailwindcss";
 
 /*
- * Design tokens — extraídos de los mockups (frame desktop 1440px).
+ * Design tokens — valores exactos de la auditoría del proyecto Framer.
+ * Lienzo de referencia: Desktop 1200px · Tablet 810px · Phone 390px.
  */
 @theme {
+  /* Breakpoints exactos del diseño (sustituyen a los de Tailwind) */
+  --breakpoint-*: initial;
+  --breakpoint-tablet: 50.625rem; /* 810px */
+  --breakpoint-desktop: 75rem; /* 1200px */
+
   /* Tipografía */
-  --font-display: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 
-  /* Marca */
+  /* Paleta Primary */
+  --color-primary-50: #f4f3f9;
+  --color-primary-100: #e6e4f1;
+  --color-primary-200: #cac6e2;
+  --color-primary-300: #afa9d3;
+  --color-primary-400: #958cc4;
+  --color-primary-500: #7c70b4;
+  --color-primary-600: #4c3f80;
+  --color-primary-700: #352b5b;
+  --color-primary-800: #1d1736;
+  --color-primary-900: #120d24;
   --color-lime: #d1f383;
-  --color-lime-hover: #c3ea68;
+  --color-deep-violet: #251d44;
+  --color-lavender: #a698f2;
 
-  /* Texto */
-  --color-ink: #1c1635;
-  --color-ink-muted: #635b82;
+  /* Paleta Neutral */
+  --color-neutral-50: #f9f9fb;
+  --color-neutral-100: #eceef2;
+  --color-neutral-200: #cfd4e2;
+  --color-neutral-300: #b9bed3;
+  --color-neutral-400: #a1a8c3;
+  --color-neutral-500: #858fb3;
+  --color-neutral-600: #6f7aa2;
+  --color-neutral-700: #5c6788;
+  --color-neutral-800: #49526d;
+  --color-neutral-900: #373f53;
+  --color-neutral-950: #141721;
+  --color-frosted: rgb(242 243 255 / 0.07);
 
-  /* Superficies claras */
-  --color-surface: #f9f9fb;
-  --color-surface-alt: #f4f3f9;
-  --color-chip: #e5e3f0;
-  --color-field: #eceef2;
-  --color-field-border: #d1d2d6;
+  /* Estilos de texto (tamaños Phone/Tablet; Desktop usa las variantes -lg) */
+  --text-h2: 2.44rem;
+  --text-h2--line-height: 1;
+  --text-h2--letter-spacing: -0.05em;
+  --text-h2-lg: 3.05rem;
+  --text-h2-lg--line-height: 1;
+  --text-h2-lg--letter-spacing: -0.05em;
+  --text-h4: 1.34rem;
+  --text-h4--line-height: 1.2;
+  --text-h4--letter-spacing: -0.06em;
+  --text-h4-lg: 1.55rem;
+  --text-h4-lg--line-height: 1.2;
+  --text-h4-lg--letter-spacing: -0.06em;
+  --text-body: 1rem;
+  --text-body--line-height: 1.3;
+  --text-body--letter-spacing: -0.02em;
+  /* "Body (Mono)" del proyecto: es Inter, no monoespaciada */
+  --text-body-mono: 1rem;
+  --text-body-mono--line-height: 1.1;
+  --text-body-mono--letter-spacing: -0.02em;
+  --text-eyebrow: 0.97rem;
+  --text-eyebrow--line-height: 1.2;
+  --text-eyebrow--letter-spacing: -0.04em;
+  --text-button: 1.125rem;
+  --text-button--line-height: 1;
+  --text-button--letter-spacing: -0.06em;
+  --text-button-sm: 0.875rem;
+  --text-button-sm--line-height: 1;
+  --text-button-sm--letter-spacing: -0.06em;
 
-  /* Superficies oscuras */
-  --color-night: #1d1736;
-  --color-plum: #443874;
-  --color-lavender: #9b8ee4;
+  /* Radios */
+  --radius-card: 12px;
+  --radius-button: 8px;
+  --radius-input: 10px;
+  --radius-badge: 45px;
 
-  /* Escala tipográfica: todos los titulares grandes comparten tamaño en desktop */
-  --text-display: 3.625rem;
-  --text-display--line-height: 1.09;
-  --text-display--letter-spacing: -0.045em;
-  --text-display-sm: 2.25rem;
-  --text-display-sm--line-height: 1.06;
-  --text-display-sm--letter-spacing: -0.04em;
-  --text-body: 1.125rem;
-  --text-body--line-height: 1.45;
+  /* Sombras */
+  --shadow-hero: 3px 3px 14px 0 rgb(0 0 0 / 0.25);
+  --shadow-button: 5px 5px 0 0 var(--color-neutral-950);
+  --shadow-nav: 0 2px 4px 0 rgb(0 0 0 / 0.25);
+  --shadow-phone:
+    53px 52px 60px -40px rgb(0 0 0 / 0.45), 15.9px 15.6px 18px -20px rgb(0 0 0 / 0.3);
 
-  --shadow-card: 0 24px 60px -24px rgb(28 22 53 / 0.35);
+  /* Curvas y animaciones */
+  --ease-framer: cubic-bezier(0.44, 0, 0.56, 1);
+  --ease-menu: cubic-bezier(0.65, 0, 0.31, 1);
+  /* Aproximación CSS del resorte de Framer (0.4s, rebote 0.2) */
+  --ease-spring: cubic-bezier(0.34, 1.3, 0.64, 1);
 
   --animate-aurora: aurora 18s ease-in-out infinite alternate;
-  --animate-float: float 7s ease-in-out infinite;
-  --animate-fade-up: fade-up 0.8s ease-out both;
-
-  @keyframes fade-up {
-    from {
-      opacity: 0;
-      transform: translateY(24px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
+  --animate-pulse-dot: pulse-dot 2.5s linear 0.5s infinite;
+  --animate-spin: spin 1s linear infinite;
 
   @keyframes aurora {
     from {
@@ -66,13 +108,32 @@
     }
   }
 
-  @keyframes float {
-    0%,
+  /* 2s de animación + 0.5s de pausa entre repeticiones */
+  @keyframes pulse-dot {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    80%,
     100% {
+      transform: scale(2);
+      opacity: 0;
+    }
+  }
+
+  /* Transición vertical de los números de la cuenta regresiva */
+  @keyframes count-in {
+    from {
+      transform: translateY(100%);
+    }
+    to {
       transform: translateY(0);
     }
-    50% {
-      transform: translateY(-10px);
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
     }
   }
 }
@@ -82,8 +143,8 @@ html {
 }
 
 body {
-  background: var(--color-surface);
-  color: var(--color-ink);
+  background: var(--color-primary-50);
+  color: var(--color-neutral-950);
 }
 
 @media (prefers-reduced-motion: reduce) {

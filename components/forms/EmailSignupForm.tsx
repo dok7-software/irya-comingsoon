@@ -1,84 +1,90 @@
 "use client";
 
 import { useId, useState, type FormEvent } from "react";
-import { Button } from "@/components/ui/Button";
+import { SpinnerIcon } from "@/components/ui/icons";
 import { signupForm } from "@/lib/content";
 import { cn } from "@/lib/cn";
+import { joinWaitlist } from "@/lib/waitlist";
 
-type Status = "idle" | "invalid" | "success";
-
-const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+type Status = "idle" | "submitting" | "success" | "error";
 
 type EmailSignupFormProps = {
-  /** inline: input y botón en fila (hero). stacked: uno debajo del otro (footer). */
-  layout?: "inline" | "stacked";
+  /** hero: fila desde Tablet (Inter). footer: columna, input en Geist Mono. */
+  variant?: "hero" | "footer";
   className?: string;
 };
 
-export function EmailSignupForm({ layout = "inline", className }: EmailSignupFormProps) {
+export function EmailSignupForm({ variant = "hero", className }: EmailSignupFormProps) {
   const [status, setStatus] = useState<Status>("idle");
   const inputId = useId();
-  const messageId = useId();
+  const isHero = variant === "hero";
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const email = String(new FormData(event.currentTarget).get("email") ?? "").trim();
+    const form = event.currentTarget;
+    const email = String(new FormData(form).get("email") ?? "").trim();
 
-    if (!EMAIL_PATTERN.test(email)) {
-      setStatus("invalid");
-      return;
+    setStatus("submitting");
+    try {
+      await joinWaitlist(email);
+      setStatus("success");
+      form.reset();
+    } catch {
+      setStatus("error");
     }
-
-    // TODO: conectar con el servicio de lista de espera.
-    setStatus("success");
-    event.currentTarget.reset();
   }
 
-  const stacked = layout === "stacked";
-
   return (
-    <form onSubmit={handleSubmit} noValidate className={cn("relative w-full", className)}>
-      <div className={cn("flex gap-2.5", stacked ? "flex-col gap-1.5" : "flex-col sm:flex-row")}>
-        <label htmlFor={inputId} className="sr-only">
-          Correo electrónico
-        </label>
-        <input
-          id={inputId}
-          name="email"
-          type="email"
-          autoComplete="email"
-          placeholder={signupForm.placeholder}
-          aria-invalid={status === "invalid"}
-          aria-describedby={status === "idle" ? undefined : messageId}
-          onChange={() => status !== "idle" && setStatus("idle")}
-          className={cn(
-            "w-full min-w-0 rounded-lg border border-field-border bg-field px-3 text-base text-ink",
-            "placeholder:text-ink-muted/55 transition-colors outline-none",
-            "focus:border-ink-muted focus:bg-white",
-            "aria-invalid:border-red-400",
-            stacked ? "h-10 sm:h-12.5" : "h-11 sm:h-11.5 sm:flex-1",
-          )}
-        />
-        <Button
-          type="submit"
-          size={stacked ? "md" : "lg"}
-          className={cn(stacked ? "h-10 w-full sm:h-12" : "h-11 sm:h-11.5 sm:w-40")}
-        >
-          {signupForm.submit}
-        </Button>
-      </div>
-      <p
-        id={messageId}
-        role="status"
+    <form
+      onSubmit={handleSubmit}
+      className={cn(
+        "flex w-full flex-col gap-1.25 overflow-hidden",
+        isHero && "tablet:flex-row",
+        className,
+      )}
+    >
+      <label htmlFor={inputId} className="sr-only">
+        Correo electrónico
+      </label>
+      <input
+        id={inputId}
+        name="email"
+        type="email"
+        required
+        autoComplete="email"
+        placeholder={signupForm.placeholder}
+        onChange={() => status !== "idle" && status !== "submitting" && setStatus("idle")}
         className={cn(
-          // Absoluto para no desplazar el layout al mostrar el mensaje.
-          "absolute inset-x-0 top-full mt-1.5 text-sm",
-          status === "invalid" ? "text-red-500" : "text-ink-muted",
-          status === "idle" && "invisible",
+          "h-10 w-full min-w-0 rounded-input border border-neutral-300 bg-neutral-100 p-3",
+          "text-sm leading-[1.2] text-neutral-950 outline-none placeholder:text-neutral-400",
+          "transition-colors duration-200 ease-framer focus:border-primary-600",
+          isHero ? "font-sans tablet:flex-1" : "font-mono",
+        )}
+      />
+      <button
+        type="submit"
+        disabled={status === "submitting"}
+        aria-live="polite"
+        className={cn(
+          "relative flex h-10 w-full shrink-0 items-center justify-center rounded-input text-body-mono",
+          "transition-colors duration-200 ease-framer disabled:opacity-50",
+          status === "error"
+            ? "bg-[rgb(255_34_68/0.15)] text-[#f00]"
+            : "bg-lime text-deep-violet hover:bg-[#c6ec6c]",
+          isHero && "tablet:w-34",
         )}
       >
-        {status === "invalid" ? signupForm.invalid : status === "success" ? signupForm.success : ""}
-      </p>
+        <span className={cn(status === "submitting" && "invisible")}>
+          {status === "success"
+            ? signupForm.success
+            : status === "error"
+              ? signupForm.error
+              : signupForm.submit}
+        </span>
+        {status === "submitting" && (
+          <SpinnerIcon className="absolute size-5 animate-spin" aria-label="Enviando" />
+        )}
+      </button>
     </form>
   );
 }

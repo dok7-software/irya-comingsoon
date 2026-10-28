@@ -9,33 +9,30 @@ export function Hero() {
   return (
     <section
       id="registro"
-      className="relative isolate flex min-h-svh items-center justify-center px-5 pt-21 pb-12 sm:px-4 sm:pt-24 sm:pb-16"
+      data-nav-theme="frosted"
+      className="relative isolate flex h-svh min-h-200 w-full items-center justify-center overflow-clip"
     >
       <AuroraBackground variant="hero" className="-z-10" />
 
-      <div className="w-full max-w-[39.7rem] animate-fade-up rounded-[14px] bg-surface px-7 pt-6 pb-9 text-center shadow-card sm:px-10 sm:pt-7 sm:pb-11">
-        <Badge>{hero.badge}</Badge>
-
-        <h1 className="mt-4 font-display text-[2.375rem] leading-[1.1] font-medium tracking-[-0.045em] text-ink sm:text-display">
-          {hero.title.map((line) => (
-            <span key={line} className="sm:block">
-              {line}{" "}
-            </span>
-          ))}
-        </h1>
-
-        <p className="mx-auto mt-3 max-w-[32rem] text-base leading-snug text-ink-muted sm:text-body sm:leading-snug">
-          {hero.description}
-        </p>
-
-        <EmailSignupForm className="mt-8 sm:mt-11" />
-
-        <div className="mt-8 flex items-center gap-3 text-left sm:justify-center">
-          <AvatarStack avatars={waitlistAvatars} className="shrink-0" />
-          <p className="text-base text-ink-muted sm:text-body">{hero.waitlist}</p>
+      {/* Tarjeta: 340px y padding 30 en Phone; ancho por contenido (530px) y padding 25 desde Tablet */}
+      <div className="flex w-85 max-w-[calc(100%-30px)] flex-col items-center gap-10 rounded-card bg-neutral-50 p-7.5 shadow-hero tablet:w-auto tablet:max-w-none tablet:p-6.25">
+        <div className="flex w-full flex-col items-center gap-5 tablet:w-[463px]">
+          <Badge>{hero.badge}</Badge>
+          <div className="flex w-full flex-col gap-3.75 text-center">
+            <h1 className="font-heading text-h2 font-semibold desktop:text-h2-lg">{hero.title}</h1>
+            <p className="text-body-mono text-neutral-700">{hero.description}</p>
+          </div>
         </div>
 
-        <Countdown target={site.launchDate} className="mt-10 sm:mt-14" />
+        <div className="flex w-full flex-col gap-7.5 tablet:w-[463px]">
+          <EmailSignupForm />
+          <div className="flex items-center justify-center gap-2.5 tablet:h-6.25">
+            <AvatarStack avatars={waitlistAvatars} />
+            <p className="text-body font-medium text-neutral-700">{hero.waitlist}</p>
+          </div>
+        </div>
+
+        <Countdown target={site.launchDate} />
       </div>
     </section>
   );

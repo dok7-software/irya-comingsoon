@@ -7,8 +7,8 @@ export const site = {
   title: "IRYA — Viaja mejor. Juntos.",
   description:
     "Comparte trayectos, conecta con otros viajeros y muévete entre ciudades de una forma más simple.",
-  /** Fecha de lanzamiento usada por la cuenta regresiva (ISO, hora de Lima). */
-  launchDate: "2027-08-12T09:00:00-05:00",
+  /** Fin de la cuenta regresiva: medianoche en la zona horaria del navegador (sin offset). */
+  launchDate: "2027-08-13T00:00:00",
   year: 2026,
 } as const;
 
@@ -16,10 +16,11 @@ export const links = {
   download: "#descargar",
   signup: "#registro",
   features: "#funciones",
-  /** TODO: reemplazar por las rutas reales cuando existan. */
-  exploreTrips: "#funciones",
-  publishTrip: "#funciones",
-  about: "#funciones",
+  /** TODO: reemplazar por las rutas/tiendas reales cuando existan. */
+  appStore: "https://apps.apple.com/",
+  exploreTrips: "#encuentra",
+  publishTrip: "#publica",
+  about: "#confianza",
 } as const;
 
 export const navbar = {
@@ -33,7 +34,7 @@ export const navbar = {
 
 export const hero = {
   badge: "Lanzamiento pronto",
-  title: ["Tu próximo viaje", "empieza con IRYA"],
+  title: "Tu próximo viaje empieza con IRYA",
   description:
     "Comparte trayectos, conecta con otros viajeros y muévete entre ciudades de una forma más simple.",
   waitlist: "1500+ personas ya esperan IRYA.",
@@ -41,9 +42,9 @@ export const hero = {
 
 export const signupForm = {
   placeholder: "tucorreo@mail.com",
-  submit: "Regístrate",
-  success: "¡Listo! Te avisaremos cuando IRYA esté disponible.",
-  invalid: "Ingresa un correo válido.",
+  submit: "Registrate",
+  success: "¡Gracias!",
+  error: "Algo salió mal",
 };
 
 export const countdownLabels = {
@@ -53,57 +54,58 @@ export const countdownLabels = {
   seconds: "Segundos",
 } as const;
 
-/** Placeholders: reemplazar por fotos reales de la comunidad. */
+export const countdownEndMessage = "¡Ya llegó IRYA!";
+
+/** Orden de pintado: el último queda encima (como en el diseño). */
 export const waitlistAvatars = [
-  { src: "/images/avatars/avatar-1.svg", alt: "" },
-  { src: "/images/avatars/avatar-2.svg", alt: "" },
-  { src: "/images/avatars/avatar-3.svg", alt: "" },
+  { src: "/images/avatars/avatar-1.jpg", alt: "" },
+  { src: "/images/avatars/avatar-2.jpg", alt: "" },
+  { src: "/images/avatars/avatar-3.jpg", alt: "" },
 ];
 
-export type Mockup = {
+export type Screen = {
   src: string;
   alt: string;
   width: number;
   height: number;
 };
 
-/**
- * PLACEHOLDERS: recortes de los screenshots de referencia.
- * Reemplazar por los exports originales (PNG transparente) desde Figma
- * manteniendo el mismo nombre de archivo y relación de aspecto.
- */
-export const mockups = {
+/** Capturas de pantalla de la app (assets originales del proyecto Framer). */
+export const screens = {
   login: {
-    src: "/images/mockups/phone-login.png",
+    src: "/images/screens/screen-login.png",
     alt: "Pantalla de inicio de sesión de la app IRYA",
-    width: 820,
-    height: 1264,
+    width: 628,
+    height: 1393,
   },
   trips: {
-    src: "/images/mockups/phone-trips.png",
+    src: "/images/screens/screen-trips.png",
     alt: "Listado de viajes disponibles en la app IRYA",
-    width: 804,
-    height: 1272,
+    width: 628,
+    height: 1393,
   },
   tripDetail: {
-    src: "/images/mockups/phone-trip-detail.png",
+    src: "/images/screens/screen-trip-detail.png",
     alt: "Detalle de un viaje en la app IRYA",
-    width: 796,
-    height: 1256,
+    width: 628,
+    height: 1393,
   },
   signup: {
-    src: "/images/mockups/phone-signup.png",
+    src: "/images/screens/screen-signup.png",
     alt: "Pantalla de registro de la app IRYA",
-    width: 1048,
-    height: 712,
+    width: 628,
+    height: 1393,
   },
   tripConfirmed: {
-    src: "/images/mockups/phone-trip-confirmed.png",
+    src: "/images/screens/screen-trip-confirmed.png",
     alt: "Confirmación de un viaje reservado en la app IRYA",
-    width: 680,
-    height: 692,
+    width: 1024,
+    height: 1536,
   },
-} satisfies Record<string, Mockup>;
+} satisfies Record<string, Screen>;
+
+/** Marco rasterizado del teléfono del CTA final (pantalla transparente). */
+export const phoneFrame = { src: "/images/screens/phone-frame.png", width: 864, height: 1748 };
 
 export const featuresIntro = {
   badge: "Funciones",
@@ -112,6 +114,9 @@ export const featuresIntro = {
     "IRYA conecta a personas que van hacia el mismo destino para que puedan compartir el trayecto de forma sencilla, organizada y segura.",
 };
 
+/** Orientación 3D del teléfono en desktop (grados). */
+export type DeviceTilt = { x: number; y: number; z: number };
+
 export type Feature = {
   id: string;
   title: string;
@@ -119,9 +124,13 @@ export type Feature = {
   bullets: string[];
   secondaryCta: { label: string; href: string };
   primaryCta: { label: string; href: string };
-  mockup: Mockup;
-  mockupSide: "left" | "right";
+  screen: Screen;
+  deviceSide: "left" | "right";
+  tilt: DeviceTilt;
 };
+
+const tiltRight: DeviceTilt = { x: 10, y: -17, z: 9 };
+const tiltLeft: DeviceTilt = { x: 10, y: 17, z: -9 };
 
 export const features: Feature[] = [
   {
@@ -136,8 +145,9 @@ export const features: Feature[] = [
     ],
     secondaryCta: { label: "Más info", href: links.about },
     primaryCta: { label: "Explorar viajes", href: links.exploreTrips },
-    mockup: mockups.login,
-    mockupSide: "right",
+    screen: screens.login,
+    deviceSide: "right",
+    tilt: tiltRight,
   },
   {
     id: "publica",
@@ -151,8 +161,9 @@ export const features: Feature[] = [
     ],
     secondaryCta: { label: "Más info", href: links.about },
     primaryCta: { label: "Publicar un viaje", href: links.publishTrip },
-    mockup: mockups.trips,
-    mockupSide: "left",
+    screen: screens.trips,
+    deviceSide: "left",
+    tilt: tiltLeft,
   },
   {
     id: "confianza",
@@ -166,14 +177,15 @@ export const features: Feature[] = [
     ],
     secondaryCta: { label: "Más info", href: links.about },
     primaryCta: { label: "Conocer IRYA", href: links.about },
-    mockup: mockups.tripDetail,
-    mockupSide: "right",
+    screen: screens.tripDetail,
+    deviceSide: "right",
+    tilt: tiltRight,
   },
 ];
 
 export const downloadCta = {
-  title: ["Mismos destinos.", "Mejores historias."],
-  cta: { label: "Download App", href: "#" },
+  title: "Mismos destinos. Mejores historias.",
+  cta: { label: "Download App", href: links.appStore },
 };
 
 export const footer = {

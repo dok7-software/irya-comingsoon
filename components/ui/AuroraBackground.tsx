@@ -2,8 +2,9 @@ import type { CSSProperties } from "react";
 import { cn } from "@/lib/cn";
 
 /**
- * Fondo "cortina de luz" de los mockups: base violeta noche, halos lavanda
- * alargados en vertical y pliegues finos que dan la textura de cortina.
+ * Aproximación CSS del efecto "Bands" de Framer (shader WebGL no exportable):
+ * base Primary/800, halos alargados en vertical y pliegues finos de cortina.
+ * Hero: Primary/800 · Primary/600 · Lavender. CTA final: Primary/800 · 600 · 700.
  */
 
 type Glow = {
@@ -19,16 +20,16 @@ type Glow = {
 const presets: Record<"hero" | "cta", Glow[]> = {
   hero: [
     { x: -4, y: -30, w: 36, h: 100, color: "var(--color-lavender)" },
-    { x: 10, y: -20, w: 18, h: 75, color: "#aa9df0", delay: -6 },
-    { x: 28, y: 70, w: 46, h: 60, color: "#7f73c6", delay: -3 },
-    { x: 44, y: 80, w: 14, h: 40, color: "#9286d6", delay: -10 },
-    { x: 74, y: -20, w: 30, h: 90, color: "#4f4088", delay: -9 },
-    { x: 84, y: 30, w: 22, h: 90, color: "#4c3e80", delay: -12 },
+    { x: 10, y: -20, w: 18, h: 75, color: "var(--color-lavender)", delay: -6 },
+    { x: 28, y: 70, w: 46, h: 60, color: "var(--color-primary-500)", delay: -3 },
+    { x: 44, y: 80, w: 14, h: 40, color: "var(--color-lavender)", delay: -10 },
+    { x: 74, y: -20, w: 30, h: 90, color: "var(--color-primary-600)", delay: -9 },
+    { x: 84, y: 30, w: 22, h: 90, color: "var(--color-primary-600)", delay: -12 },
   ],
   cta: [
-    { x: -10, y: -30, w: 44, h: 95, color: "#4c3f80" },
-    { x: 14, y: -20, w: 14, h: 80, color: "#4a3d7d", delay: -5 },
-    { x: 72, y: -20, w: 36, h: 100, color: "#4b3e7f", delay: -8 },
+    { x: -10, y: -30, w: 44, h: 95, color: "var(--color-primary-600)" },
+    { x: 14, y: -20, w: 14, h: 80, color: "var(--color-primary-700)", delay: -5 },
+    { x: 72, y: -20, w: 36, h: 100, color: "var(--color-primary-600)", delay: -8 },
   ],
 };
 
@@ -43,7 +44,7 @@ type AuroraBackgroundProps = {
 
 export function AuroraBackground({ variant = "hero", className }: AuroraBackgroundProps) {
   return (
-    <div aria-hidden className={cn("absolute inset-0 overflow-hidden bg-night", className)}>
+    <div aria-hidden className={cn("absolute inset-0 overflow-hidden bg-primary-800", className)}>
       {presets[variant].map((glow, index) => (
         <div
           key={index}

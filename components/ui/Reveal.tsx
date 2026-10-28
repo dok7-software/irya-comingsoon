@@ -6,12 +6,13 @@ import { cn } from "@/lib/cn";
 type RevealProps = {
   children: ReactNode;
   className?: string;
-  /** Retraso en ms para escalonar elementos. */
-  delay?: number;
 };
 
-/** Aparición suave (fade + slide) al entrar en el viewport. */
-export function Reveal({ children, className, delay = 0 }: RevealProps) {
+/**
+ * Entrada del diseño: opacidad 0 → 1, sin desplazamiento,
+ * 0.4s con 0.2s de retraso, una sola vez al entrar en pantalla.
+ */
+export function Reveal({ children, className }: RevealProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
 
@@ -19,15 +20,12 @@ export function Reveal({ children, className, delay = 0 }: RevealProps) {
     const node = ref.current;
     if (!node) return;
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          observer.disconnect();
-        }
-      },
-      { rootMargin: "0px 0px -10% 0px" },
-    );
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setVisible(true);
+        observer.disconnect();
+      }
+    });
     observer.observe(node);
     return () => observer.disconnect();
   }, []);
@@ -35,10 +33,9 @@ export function Reveal({ children, className, delay = 0 }: RevealProps) {
   return (
     <div
       ref={ref}
-      style={{ transitionDelay: `${delay}ms` }}
       className={cn(
-        "transition duration-700 ease-out motion-reduce:transition-none",
-        visible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0 motion-reduce:translate-y-0 motion-reduce:opacity-100",
+        "transition-opacity delay-200 duration-400 ease-spring motion-reduce:opacity-100",
+        visible ? "opacity-100" : "opacity-0",
         className,
       )}
     >

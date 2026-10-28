@@ -8,14 +8,12 @@ type SectionHeadingProps = {
 
 export function SectionHeading({ badge, title, description }: SectionHeadingProps) {
   return (
-    <div className="flex flex-col items-center text-center">
-      <Badge size="sm">{badge}</Badge>
-      <h2 className="mt-3 max-w-[22rem] font-display text-display-sm font-medium text-ink sm:max-w-none sm:text-display">
-        {title}
-      </h2>
-      <p className="mt-3 max-w-[65rem] text-[0.9375rem] leading-snug text-ink-muted sm:mt-4 sm:text-base">
-        {description}
-      </p>
+    <div className="flex w-full flex-col items-center gap-5 text-center">
+      <div className="flex flex-col items-center gap-2">
+        <Badge>{badge}</Badge>
+        <h2 className="font-heading text-h2 font-semibold desktop:text-h2-lg">{title}</h2>
+      </div>
+      <p className="text-body font-medium text-neutral-700">{description}</p>
     </div>
   );
 }

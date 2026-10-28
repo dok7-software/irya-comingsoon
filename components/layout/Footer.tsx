@@ -1,20 +1,21 @@
 import { Logo } from "@/components/brand/Logo";
 import { EmailSignupForm } from "@/components/forms/EmailSignupForm";
-import { Container } from "@/components/ui/Container";
 import { socialIcons } from "@/components/ui/icons";
 import { footer, socialLinks } from "@/lib/content";
 
+/**
+ * Footer inferior.
+ * Desktop: 607px de alto, fila de 1200 × 333 con 80px entre columnas.
+ * Tablet: fila de 436px con extremos separados. Phone: columna con padding 80/60/49.
+ */
 export function Footer() {
   return (
-    <footer className="bg-surface-alt pt-20 pb-16 text-ink sm:pt-21 sm:pb-24">
-      <Container
-        width="narrow"
-        className="flex flex-col items-center gap-18 md:flex-row md:items-start md:justify-between"
-      >
-        <div className="flex flex-col items-center text-center">
-          <Logo className="h-8 sm:h-16" />
-          <p className="mt-3 font-display text-lg tracking-[-0.02em] sm:text-xl">{footer.tagline}</p>
-          <ul className="mt-5 flex gap-5 sm:gap-6">
+    <footer data-nav-theme="light" className="w-full overflow-clip bg-primary-50 desktop:h-151.75">
+      <div className="flex flex-col gap-15 px-15 pt-20 pb-12.25 tablet:h-109 tablet:flex-row tablet:items-center tablet:justify-between tablet:gap-12 tablet:p-5 desktop:mx-auto desktop:h-83.25 desktop:w-300 desktop:justify-center desktop:gap-20 desktop:p-0">
+        <div className="flex flex-col items-center gap-5 text-center tablet:flex-1">
+          <Logo className="w-24.5 text-deep-violet desktop:w-32.5" />
+          <p className="font-heading text-h4 font-medium desktop:text-h4-lg">{footer.tagline}</p>
+          <ul className="flex gap-4">
             {socialLinks.map(({ network, label, href }) => {
               const Icon = socialIcons[network];
               return (
@@ -24,26 +25,25 @@ export function Footer() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={label}
-                    className="flex size-10 items-center justify-center rounded-md border border-ink transition-colors hover:bg-ink hover:text-surface-alt sm:size-12.5"
+                    className="flex size-10.5 items-center justify-center rounded-[5px] border-2 border-primary-700 text-primary-700 transition-colors duration-400 ease-framer hover:bg-primary-700 hover:text-neutral-50"
                   >
-                    <Icon className="size-6 sm:size-7" />
+                    <Icon className="size-6" />
                   </a>
                 </li>
               );
             })}
           </ul>
-          <p className="mt-5 text-[0.9375rem] sm:mt-9">{footer.copyright}</p>
+          <p className="text-body font-medium">{footer.copyright}</p>
         </div>
 
-        {/* En mobile el bloque se centra pero su texto va alineado a la izquierda. */}
-        <div className="flex w-full max-w-64 flex-col text-left sm:max-w-72 sm:items-center sm:text-center">
-          <p className="font-display text-lg tracking-[-0.02em] sm:text-[1.375rem]">{footer.signupTitle}</p>
-          <p className="mt-1 text-[0.9375rem] leading-snug text-ink-muted sm:mt-2 sm:text-base">
+        <div className="flex w-full flex-col items-start gap-2.5 text-left tablet:w-auto tablet:flex-1 desktop:items-center desktop:text-center">
+          <p className="font-heading text-h4 font-medium tablet:w-55 desktop:text-h4-lg">{footer.signupTitle}</p>
+          <p className="text-body font-medium text-neutral-700 tablet:w-55 desktop:w-64.5">
             {footer.signupDescription}
           </p>
-          <EmailSignupForm layout="stacked" className="mt-4 sm:mt-5" />
+          <EmailSignupForm variant="footer" className="tablet:w-60" />
         </div>
-      </Container>
+      </div>
     </footer>
   );
 }
