@@ -9,6 +9,8 @@ const lime = "bg-lime text-deep-violet hover:bg-neutral-50";
 const variants = {
   light,
   lime,
+  /** Primary/700 sobre fondo claro (página Conócenos). */
+  dark: "bg-primary-700 text-neutral-50 hover:bg-primary-600",
   /** Claro en Phone, lima desde Tablet (CTA de las cards de funciones). */
   "lime-tablet": cn(light, "tablet:bg-lime tablet:text-deep-violet tablet:hover:bg-neutral-50"),
   /** Claro (Primary/50) hasta Desktop, lima en Desktop (CTA final). */

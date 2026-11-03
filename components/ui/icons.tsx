@@ -31,6 +31,16 @@ export function ArrowUpRightIcon(props: IconProps) {
   );
 }
 
+/** Flecha hacia abajo dentro de un cuadrado (desplegables de las FAQ). */
+export function ChevronDownSquareIcon(props: IconProps) {
+  return (
+    <svg {...base} strokeWidth={1.6} {...props}>
+      <rect x="3.5" y="3.5" width="17" height="17" rx="3" />
+      <path d="M12 7.5v8.5M8.25 12.5 12 16.25l3.75-3.75" />
+    </svg>
+  );
+}
+
 export function MenuIcon(props: IconProps) {
   return (
     <svg {...base} {...props}>

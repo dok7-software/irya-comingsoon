@@ -21,14 +21,18 @@ export const links = {
   exploreTrips: "#encuentra",
   publishTrip: "#publica",
   about: "#confianza",
+  /** Página "Conócenos" (sin tilde en la URL para que no se codifique como %C3%B3). */
+  aboutPage: "/conocenos",
+  /** TODO: reemplazar por el correo o canal de soporte real. */
+  contact: "mailto:hola@irya.app",
 } as const;
 
 export const navbar = {
   cta: { label: "Download App", href: links.download },
   /** Enlaces del menú desplegable en mobile. */
   menu: [
-    { label: "Funciones", href: links.features },
-    { label: "Regístrate", href: links.signup },
+    { label: "Funciones", href: `/${links.features}` },
+    { label: "Regístrate", href: `/${links.signup}` },
   ],
 };
 
@@ -143,7 +147,7 @@ export const features: Feature[] = [
       "Compara horarios y puntos de encuentro",
       "Conoce al conductor antes de reservar",
     ],
-    secondaryCta: { label: "Más info", href: links.about },
+    secondaryCta: { label: "Más info", href: links.aboutPage },
     primaryCta: { label: "Explorar viajes", href: links.exploreTrips },
     screen: screens.login,
     deviceSide: "right",
@@ -159,7 +163,7 @@ export const features: Feature[] = [
       "Define horario y plazas disponibles",
       "Tú decides con quién compartir el viaje",
     ],
-    secondaryCta: { label: "Más info", href: links.about },
+    secondaryCta: { label: "Más info", href: links.aboutPage },
     primaryCta: { label: "Publicar un viaje", href: links.publishTrip },
     screen: screens.trips,
     deviceSide: "left",
@@ -175,13 +179,101 @@ export const features: Feature[] = [
       "Verificación de identidad",
       "Valoraciones después de cada viaje",
     ],
-    secondaryCta: { label: "Más info", href: links.about },
+    secondaryCta: { label: "Más info", href: links.aboutPage },
     primaryCta: { label: "Conocer IRYA", href: links.about },
     screen: screens.tripDetail,
     deviceSide: "right",
     tilt: tiltRight,
   },
 ];
+
+/* ---------- Página /conocenos ---------- */
+
+export const aboutIntro = {
+  badge: "Funcionalidades",
+  title: "Viajar nunca fue tan fácil.",
+};
+
+export type AboutFeature = {
+  id: string;
+  title: string;
+  description: string;
+  /**
+   * Placeholder: pantalla real de la app recortada dentro de un panel.
+   * TODO: sustituir por las imágenes compuestas exportadas de Framer (con las tarjetas flotantes).
+   */
+  screen: Screen;
+  /** Parte del teléfono que queda visible dentro del panel. */
+  crop: "top" | "bottom";
+  mediaSide: "left" | "right";
+};
+
+export const aboutFeatures: AboutFeature[] = [
+  {
+    id: "confianza",
+    title: "Viaja con más confianza desde el primer momento.",
+    description:
+      "Perfiles verificados para que conductores y pasajeros sepan con quién compartirán el trayecto antes de empezar el viaje.",
+    screen: screens.tripDetail,
+    crop: "bottom",
+    mediaSide: "right",
+  },
+  {
+    id: "opciones",
+    title: "Elige lo que mejor encaje contigo. Más horarios. Mejores precios.",
+    description:
+      "Encuentra distintas opciones de salida según tu ruta y escoge la que mejor se adapte a ti.",
+    screen: screens.trips,
+    crop: "top",
+    mediaSide: "left",
+  },
+  {
+    id: "simple",
+    title: "Todo más simple, desde que sales hasta que llegas.",
+    description:
+      "Busca rutas, revisa horarios, reserva tu asiento, coordina con el conductor y gestiona tu viaje desde un solo lugar.",
+    screen: screens.tripConfirmed,
+    crop: "top",
+    mediaSide: "right",
+  },
+];
+
+export const faqIntro = {
+  badge: "FAQs",
+  title: "Todo claro antes de empezar el viaje.",
+  description: "Todo lo que necesitas saber sobre cómo funciona IRYA antes de empezar a viajar.",
+};
+
+/** TODO: las respuestas son provisionales; reemplazar por el copy definitivo. */
+export const faqs = [
+  {
+    question: "¿Qué es IRYA?",
+    answer:
+      "IRYA es una app que conecta a personas que viajan hacia el mismo destino para que puedan compartir el trayecto entre ciudades de forma sencilla, organizada y segura.",
+  },
+  {
+    question: "¿Cómo funciona la seguridad en IRYA?",
+    answer:
+      "Conductores y pasajeros tienen perfiles verificados y valoraciones después de cada viaje, para que sepas con quién vas a viajar antes de reservar.",
+  },
+  {
+    question: "¿Cómo publico un viaje?",
+    answer:
+      "Indica tu origen, destino, hora de salida y plazas disponibles. En pocos pasos tu ruta queda visible para quienes viajan en tu misma dirección.",
+  },
+  {
+    question: "¿Cómo reservo un viaje?",
+    answer:
+      "Busca por origen y destino, compara horarios y precios, revisa el perfil del conductor y reserva tu asiento desde la app.",
+  },
+];
+
+export const contactCard = {
+  title: "¿Te quedó alguna duda?",
+  description:
+    "Si no encuentras la respuesta que buscas, escríbenos. Estaremos encantados de ayudarte.",
+  cta: { label: "Contáctanos", href: links.contact },
+};
 
 export const downloadCta = {
   title: "Mismos destinos. Mejores historias.",
