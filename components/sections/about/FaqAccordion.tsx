@@ -14,26 +14,26 @@ export function FaqAccordion({ items }: FaqAccordionProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <ul className="flex flex-col gap-5 tablet:gap-2">
+    <ul className="flex flex-col gap-2.75">
       {items.map((item, index) => {
         const open = openIndex === index;
         const panelId = `${baseId}-${index}`;
         return (
           <li
             key={item.question}
-            className="rounded-[6px] border border-neutral-200 bg-neutral-50 shadow-[4px_4px_0_0_var(--color-neutral-200)]"
+            className="rounded-[10px] bg-neutral-50 shadow-[2px_2px_4px_0_rgb(0_0_0/0.25)]"
           >
             <button
               type="button"
               aria-expanded={open}
               aria-controls={panelId}
               onClick={() => setOpenIndex(open ? null : index)}
-              className="flex min-h-21.25 w-full items-center justify-between gap-4 px-5 text-left font-heading text-[1.125rem] font-medium tracking-[-0.04em]"
+              className="flex w-full items-center justify-between gap-7.5 py-8.75 pr-8.75 pl-5 text-left font-heading text-h4 leading-[1.2] font-medium tracking-[-0.06em] desktop:text-h4-lg"
             >
               {item.question}
               <ChevronDownSquareIcon
                 className={cn(
-                  "size-6 shrink-0 text-neutral-800 transition-transform duration-400 ease-menu",
+                  "size-9.25 shrink-0 text-neutral-950 transition-transform duration-400 ease-menu",
                   open && "rotate-180",
                 )}
               />
@@ -47,7 +47,7 @@ export function FaqAccordion({ items }: FaqAccordionProps) {
               )}
             >
               <div className="overflow-hidden">
-                <p className="px-5 pb-5 text-body font-medium text-neutral-700">{item.answer}</p>
+                <p className="-mt-3.75 pr-8.75 pb-8.75 pl-5 text-body font-medium text-neutral-700">{item.answer}</p>
               </div>
             </div>
           </li>

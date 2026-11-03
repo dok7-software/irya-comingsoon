@@ -194,28 +194,65 @@ export const aboutIntro = {
   title: "Viajar nunca fue tan fácil.",
 };
 
+/** Rectángulo [x, y, ancho, alto] en px dentro del panel (x desde el borde izquierdo). */
+export type LayerRect = [number, number, number, number];
+
+/** Capa del panel: imagen original de Framer colocada por breakpoint. */
+export type ShowcaseLayer = {
+  image: Screen;
+  fit: "cover" | "contain";
+  /** Pantallas de la app: esquinas de 25px dentro del marco. */
+  rounded?: boolean;
+  rect: { phone: LayerRect; tablet: LayerRect; desktop: LayerRect };
+};
+
 export type AboutFeature = {
   id: string;
   title: string;
   description: string;
-  /**
-   * Placeholder: pantalla real de la app recortada dentro de un panel.
-   * TODO: sustituir por las imágenes compuestas exportadas de Framer (con las tarjetas flotantes).
-   */
-  screen: Screen;
-  /** Parte del teléfono que queda visible dentro del panel. */
-  crop: "top" | "bottom";
+  /** Fondo con remolino (en Framer, Phone/Tablet usan un shader; aquí la misma imagen). */
+  background: string;
+  /** Capas en orden de pintado: pantalla, marco del teléfono y tarjeta flotante. */
+  layers: ShowcaseLayer[];
   mediaSide: "left" | "right";
 };
 
+const aboutImage = (name: string, width: number, height: number, alt = ""): Screen => ({
+  src: `/images/about/${name}.png`,
+  alt,
+  width,
+  height,
+});
+
+/** Marco del teléfono en las tres medidas que usa Framer. */
+const frameLayer = (phone: LayerRect, tablet: LayerRect, desktop: LayerRect): ShowcaseLayer => ({
+  image: { ...phoneFrame, alt: "" },
+  fit: "cover",
+  rect: { phone, tablet, desktop },
+});
+
+/** Paneles: Phone 350 × 445 · Tablet 715 × 380 · Desktop 425 × 402 (medidas del proyecto Framer). */
 export const aboutFeatures: AboutFeature[] = [
   {
     id: "confianza",
     title: "Viaja con más confianza desde el primer momento.",
     description:
       "Perfiles verificados para que conductores y pasajeros sepan con quién compartirán el trayecto antes de empezar el viaje.",
-    screen: screens.tripDetail,
-    crop: "bottom",
+    background: "/images/about/bg-1.png",
+    layers: [
+      {
+        image: aboutImage("screen-driver", 941, 1672, "Perfil del conductor y detalle del viaje en la app IRYA"),
+        fit: "contain",
+        rounded: true,
+        rect: { phone: [19, -197, 311, 578], tablet: [202, -262, 311, 578], desktop: [57, -240, 311, 578] },
+      },
+      frameLayer([33, -210, 284, 574], [216, -275, 284, 574], [71, -253, 284, 574]),
+      {
+        image: aboutImage("card-driver", 1672, 941),
+        fit: "cover",
+        rect: { phone: [30, 39, 291, 148], tablet: [194, 72, 328, 167], desktop: [49, 72, 328, 167] },
+      },
+    ],
     mediaSide: "right",
   },
   {
@@ -223,8 +260,21 @@ export const aboutFeatures: AboutFeature[] = [
     title: "Elige lo que mejor encaje contigo. Más horarios. Mejores precios.",
     description:
       "Encuentra distintas opciones de salida según tu ruta y escoge la que mejor se adapte a ti.",
-    screen: screens.trips,
-    crop: "top",
+    background: "/images/about/bg-2.png",
+    layers: [
+      {
+        image: aboutImage("screen-trips", 941, 1672, "Viajes disponibles de Lima a Ica en la app IRYA"),
+        fit: "cover",
+        rounded: true,
+        rect: { phone: [33, 52, 284, 574], tablet: [216, 34, 284, 574], desktop: [71, 19, 284, 574] },
+      },
+      frameLayer([33, 56, 284, 574], [216, 38, 284, 574], [71, 23, 284, 574]),
+      {
+        image: aboutImage("card-trip", 1774, 887),
+        fit: "contain",
+        rect: { phone: [0, 219, 356, 306], tablet: [0, -160, 721, 620], desktop: [0, 111, 431, 371] },
+      },
+    ],
     mediaSide: "left",
   },
   {
@@ -232,8 +282,21 @@ export const aboutFeatures: AboutFeature[] = [
     title: "Todo más simple, desde que sales hasta que llegas.",
     description:
       "Busca rutas, revisa horarios, reserva tu asiento, coordina con el conductor y gestiona tu viaje desde un solo lugar.",
-    screen: screens.tripConfirmed,
-    crop: "top",
+    background: "/images/about/bg-3.png",
+    layers: [
+      {
+        image: screens.tripConfirmed,
+        fit: "cover",
+        rounded: true,
+        rect: { phone: [-42, 131, 431, 610], tablet: [141, 66, 431, 610], desktop: [-4, 88, 431, 610] },
+      },
+      frameLayer([20, 120, 310, 626], [203, 55, 310, 626], [58, 77, 310, 626]),
+      {
+        image: aboutImage("card-map", 1774, 887),
+        fit: "cover",
+        rect: { phone: [-9, 286, 369, 163], tablet: [173, 221, 369, 163], desktop: [28, 243, 369, 163] },
+      },
+    ],
     mediaSide: "right",
   },
 ];
