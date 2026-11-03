@@ -11,11 +11,13 @@ import { cn } from "@/lib/cn";
 type MobileMenuProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  /** Barra clara (abierta o sobre una sección `light`): icono oscuro. */
+  light: boolean;
   className?: string;
 };
 
 /** Barra Phone de 60px; al abrirse pasa a fondo claro y despliega el menú (0.4s). */
-export function MobileMenu({ open, onOpenChange, className }: MobileMenuProps) {
+export function MobileMenu({ open, onOpenChange, light, className }: MobileMenuProps) {
   const panelId = useId();
 
   useEffect(() => {
@@ -44,7 +46,7 @@ export function MobileMenu({ open, onOpenChange, className }: MobileMenuProps) {
           onClick={() => onOpenChange(!open)}
           className={cn(
             "flex size-9 items-center justify-center rounded-[6px]",
-            open ? "text-neutral-950" : "text-neutral-50",
+            light ? "text-neutral-950" : "text-neutral-50",
           )}
         >
           {open ? <CloseIcon className="size-6" /> : <MenuIcon className="size-6" />}

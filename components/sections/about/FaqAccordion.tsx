@@ -14,7 +14,7 @@ export function FaqAccordion({ items }: FaqAccordionProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <ul className="flex flex-col gap-2">
+    <ul className="flex flex-col gap-5 tablet:gap-2">
       {items.map((item, index) => {
         const open = openIndex === index;
         const panelId = `${baseId}-${index}`;

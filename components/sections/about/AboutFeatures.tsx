@@ -8,24 +8,26 @@ import { ShowcaseMedia } from "./ShowcaseMedia";
 /**
  * Funcionalidades de /conocenos.
  * Desktop: columna de 800px con filas alternas (copy + panel de 333 × 314) separadas 60px.
+ * Phone: copy arriba y panel debajo, con mucho más aire entre filas (240px).
  */
 export function AboutFeatures() {
   return (
     <section
       data-nav-theme="dark"
-      className="flex w-full flex-col items-center gap-15 px-5 pt-30 desktop:px-0"
+      data-nav-theme-phone="light"
+      className="flex w-full flex-col items-center gap-27.5 px-4.5 pt-20 tablet:gap-15 tablet:px-5 tablet:pt-30 desktop:px-0"
     >
       <Reveal className="flex flex-col items-center gap-2 text-center">
         <Badge>{aboutIntro.badge}</Badge>
         <h1 className="font-heading text-h2 font-semibold desktop:text-h2-lg">{aboutIntro.title}</h1>
       </Reveal>
 
-      <ol className="flex w-full flex-col gap-15 desktop:w-200">
+      <ol className="flex w-full flex-col gap-60 tablet:gap-15 desktop:w-200">
         {aboutFeatures.map((feature, index) => (
           <li key={feature.id} id={feature.id}>
             <Reveal
               className={cn(
-                "flex flex-col items-center gap-10 tablet:flex-row tablet:gap-16.75",
+                "flex flex-col items-center gap-17.5 tablet:flex-row tablet:gap-16.75",
                 feature.mediaSide === "left" && "tablet:flex-row-reverse",
               )}
             >

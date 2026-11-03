@@ -12,10 +12,12 @@ const HIDE_AFTER_PX = 120;
 /**
  * Estado de la navegación según el scroll:
  * - `theme`: variante según la sección (`data-nav-theme`) que queda bajo la barra.
+ * - `phoneTheme`: igual, pero la sección puede pedir otra en Phone con `data-nav-theme-phone`.
  * - `hidden`: la barra sube 75px al desplazarse hacia abajo y vuelve al subir.
  */
 export function useNavState() {
   const [theme, setTheme] = useState<NavTheme>("frosted");
+  const [phoneTheme, setPhoneTheme] = useState<NavTheme>("frosted");
   const [hidden, setHidden] = useState(false);
 
   useEffect(() => {
@@ -29,7 +31,9 @@ export function useNavState() {
       for (const section of sections) {
         const rect = section.getBoundingClientRect();
         if (rect.top <= PROBE_Y && rect.bottom > PROBE_Y) {
-          setTheme(section.dataset.navTheme as NavTheme);
+          const sectionTheme = section.dataset.navTheme as NavTheme;
+          setTheme(sectionTheme);
+          setPhoneTheme((section.dataset.navThemePhone as NavTheme | undefined) ?? sectionTheme);
           break;
         }
       }
@@ -51,5 +55,5 @@ export function useNavState() {
     };
   }, []);
 
-  return { theme, hidden };
+  return { theme, phoneTheme, hidden };
 }

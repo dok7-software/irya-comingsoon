@@ -17,9 +17,9 @@ const barThemes: Record<NavTheme, string> = {
 };
 
 export function Navbar() {
-  const { theme, hidden } = useNavState();
+  const { theme, phoneTheme, hidden } = useNavState();
   const [menuOpen, setMenuOpen] = useState(false);
-  const activeTheme: NavTheme = menuOpen ? "light" : theme;
+  const activeTheme: NavTheme = menuOpen ? "light" : phoneTheme;
 
   return (
     <header
@@ -54,6 +54,7 @@ export function Navbar() {
       <MobileMenu
         open={menuOpen}
         onOpenChange={setMenuOpen}
+        light={activeTheme === "light"}
         className={cn("tablet:hidden", barThemes[activeTheme])}
       />
     </header>

@@ -244,27 +244,26 @@ export const faqIntro = {
   description: "Todo lo que necesitas saber sobre cómo funciona IRYA antes de empezar a viajar.",
 };
 
-/** TODO: las respuestas son provisionales; reemplazar por el copy definitivo. */
 export const faqs = [
   {
     question: "¿Qué es IRYA?",
     answer:
-      "IRYA es una app que conecta a personas que viajan hacia el mismo destino para que puedan compartir el trayecto entre ciudades de forma sencilla, organizada y segura.",
+      "IRYA es una app de carsharing que conecta a conductores con asientos disponibles y pasajeros que viajan hacia el mismo destino, para compartir el trayecto de forma más simple, flexible y económica.",
   },
   {
     question: "¿Cómo funciona la seguridad en IRYA?",
     answer:
-      "Conductores y pasajeros tienen perfiles verificados y valoraciones después de cada viaje, para que sepas con quién vas a viajar antes de reservar.",
+      "IRYA contará con perfiles verificados para pasajeros y conductores, de modo que ambas partes puedan saber con quién compartirán el viaje antes de iniciar el trayecto.",
   },
   {
     question: "¿Cómo publico un viaje?",
     answer:
-      "Indica tu origen, destino, hora de salida y plazas disponibles. En pocos pasos tu ruta queda visible para quienes viajan en tu misma dirección.",
+      "Si vas a conducir, solo tendrás que indicar tu origen, destino, fecha, horario y los asientos disponibles. Tu viaje aparecerá en IRYA para que pasajeros que recorran una ruta compatible puedan encontrarlo y reservar.",
   },
   {
     question: "¿Cómo reservo un viaje?",
     answer:
-      "Busca por origen y destino, compara horarios y precios, revisa el perfil del conductor y reserva tu asiento desde la app.",
+      "Busca tu ruta, compara los horarios y viajes disponibles, elige la opción que mejor se adapte a ti y reserva tu asiento directamente desde IRYA.",
   },
 ];
 

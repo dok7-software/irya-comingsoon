@@ -5,27 +5,27 @@ import { cn } from "@/lib/cn";
 /** Posición del teléfono para que el panel recorte la parte que no se ve. */
 const cropPositions: Record<AboutFeature["crop"], string> = {
   top: "top-8",
-  bottom: "bottom-16",
+  bottom: "bottom-10 tablet:bottom-16",
 };
 
 type ShowcaseMediaProps = Pick<AboutFeature, "screen" | "crop"> & { className?: string };
 
 /**
- * Panel de 333 × 314 con el teléfono recortado.
+ * Panel de 333 × 314 con el teléfono recortado (Phone: ancho completo × 248, teléfono de 288px).
  * Placeholder hasta tener las imágenes compuestas de Framer (ver `AboutFeature.screen`).
  */
 export function ShowcaseMedia({ screen, crop, className }: ShowcaseMediaProps) {
   return (
     <div
       className={cn(
-        "relative h-78.5 w-full max-w-83.25 shrink-0 overflow-clip rounded-[6px] shadow-hero",
+        "relative h-62 w-full shrink-0 tablet:h-78.5 tablet:w-83.25 overflow-clip rounded-[6px] shadow-hero",
         "bg-[radial-gradient(108%_150%_at_-4.6%_-23.4%,var(--color-primary-600)_0%,var(--color-primary-800)_100%)]",
         className,
       )}
     >
       <div
         className={cn(
-          "absolute left-1/2 w-57.5 -translate-x-1/2 rounded-[38px] bg-neutral-950 p-1.75 shadow-phone",
+          "absolute left-1/2 w-72 -translate-x-1/2 tablet:w-57.5 rounded-[38px] bg-neutral-950 p-1.75 shadow-phone",
           cropPositions[crop],
         )}
       >
@@ -34,7 +34,7 @@ export function ShowcaseMedia({ screen, crop, className }: ShowcaseMediaProps) {
           alt={screen.alt}
           width={screen.width}
           height={screen.height}
-          sizes="216px"
+          sizes="(min-width: 810px) 216px, 274px"
           quality={90}
           className="h-auto w-full rounded-[31px]"
         />
