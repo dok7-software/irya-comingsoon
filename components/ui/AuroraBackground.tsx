@@ -1,10 +1,9 @@
 import type { CSSProperties } from "react";
 import { cn } from "@/lib/cn";
-import { BandsShader } from "./BandsShader";
 
 /**
- * Fondo "Bands" de Framer: shader WebGL (`BandsShader`) sobre una aproximación CSS
- * que se ve mientras carga o si el navegador no tiene WebGL.
+ * Aproximación CSS del efecto "Bands" de Framer (shader WebGL no exportable):
+ * base Primary/800, halos alargados en vertical y pliegues finos de cortina.
  * Hero: Primary/800 · Primary/600 · Lavender. CTA final: Primary/800 · 600 · 700.
  */
 
@@ -38,12 +37,6 @@ const presets: Record<"hero" | "cta", Glow[]> = {
 const folds =
   "repeating-linear-gradient(90deg, rgb(255 255 255 / 0) 0%, rgb(255 255 255 / 0.14) 1.8%, rgb(255 255 255 / 0) 3.6%, rgb(10 6 30 / 0.22) 5%, rgb(255 255 255 / 0) 6.4%)";
 
-/** Colores del shader (`$control__colors` de la auditoría). */
-const shaderColors: Record<keyof typeof presets, [string, string, string]> = {
-  hero: ["#1d1736", "#4c3f80", "#a698f2"],
-  cta: ["#1d1736", "#4c3f80", "#352b5b"],
-};
-
 type AuroraBackgroundProps = {
   variant?: keyof typeof presets;
   className?: string;
@@ -69,7 +62,6 @@ export function AuroraBackground({ variant = "hero", className }: AuroraBackgrou
         />
       ))}
       <div className="absolute inset-0 mix-blend-soft-light blur-[2px]" style={{ backgroundImage: folds }} />
-      <BandsShader colors={shaderColors[variant]} />
       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgb(29_23_54/0.15)_0%,transparent_30%,transparent_70%,rgb(29_23_54/0.35)_100%)]" />
     </div>
   );
