@@ -19,8 +19,20 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://irya.app"),
   title: site.title,
   description: site.description,
+  openGraph: {
+    title: site.title,
+    description: site.description,
+    locale: "es_ES",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: site.title,
+    description: site.description,
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
