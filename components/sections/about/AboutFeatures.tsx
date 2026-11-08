@@ -39,8 +39,8 @@ export function AboutFeatures() {
                 </span>
                 <h2 className="font-heading text-h2 font-semibold desktop:text-h2-lg">{feature.title}</h2>
                 <p className="text-base leading-[1.1] tracking-[-0.02em] text-neutral-700">{feature.description}</p>
-                <ButtonLink href={links.appStore} variant="dark">
-                  Download App
+                <ButtonLink href={links.aboutPage} variant="dark">
+                  Conócenos
                 </ButtonLink>
               </div>
               <ShowcaseMedia background={feature.background} layers={feature.layers} />

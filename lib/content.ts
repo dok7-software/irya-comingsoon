@@ -13,11 +13,8 @@ export const site = {
 } as const;
 
 export const links = {
-  download: "#descargar",
   signup: "#registro",
   features: "#funciones",
-  /** TODO: reemplazar por las rutas/tiendas reales cuando existan. */
-  appStore: "https://apps.apple.com/",
   exploreTrips: "#encuentra",
   publishTrip: "#publica",
   about: "#confianza",
@@ -28,7 +25,7 @@ export const links = {
 } as const;
 
 export const navbar = {
-  cta: { label: "Download App", href: links.download },
+  cta: { label: "Conócenos", href: links.aboutPage },
   /** Enlaces del menú desplegable en mobile. */
   menu: [
     { label: "Funciones", href: `/${links.features}` },
@@ -339,7 +336,7 @@ export const contactCard = {
 
 export const downloadCta = {
   title: "Mismos destinos. Mejores historias.",
-  cta: { label: "Download App", href: links.appStore },
+  cta: { label: "Conócenos", href: links.aboutPage },
 };
 
 export const footer = {
