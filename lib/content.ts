@@ -20,8 +20,7 @@ export const links = {
   about: "#confianza",
   /** Página "Conócenos" (sin tilde en la URL para que no se codifique como %C3%B3). */
   aboutPage: "/conocenos",
-  /** TODO: reemplazar por el correo o canal de soporte real. */
-  contact: "mailto:hola@irya.app",
+  contact: "/contacto",
 } as const;
 
 export const navbar = {
@@ -43,7 +42,7 @@ export const hero = {
 
 export const signupForm = {
   placeholder: "tucorreo@mail.com",
-  submit: "Registrate",
+  submit: "Regístrate",
   success: "¡Gracias!",
   error: "Algo salió mal",
 };
@@ -334,6 +333,22 @@ export const contactCard = {
   cta: { label: "Contáctanos", href: links.contact },
 };
 
+export const contactPage = {
+  badge: "Contacto",
+  title: "Escríbenos",
+  description: "Cuéntanos tu duda. Te respondemos al correo que nos dejes.",
+  name: "Nombre",
+  email: "Correo electrónico",
+  message: "Mensaje",
+  namePlaceholder: "Tu nombre",
+  emailPlaceholder: "tucorreo@mail.com",
+  messagePlaceholder: "¿En qué podemos ayudarte?",
+  submit: "Enviar",
+  success: "Mensaje enviado",
+  successDetail: "Lo hemos recibido. Te responderemos a tu correo.",
+  error: "No se pudo enviar",
+};
+
 export const downloadCta = {
   title: "Mismos destinos. Mejores historias.",
   cta: { label: "Conócenos", href: links.aboutPage },
@@ -347,11 +362,10 @@ export const footer = {
   copyright: `© ${site.year} - irya`,
 };
 
-/** TODO: reemplazar por los perfiles oficiales. */
 export const socialLinks = [
-  { network: "facebook", label: "Facebook", href: "https://facebook.com" },
-  { network: "instagram", label: "Instagram", href: "https://instagram.com" },
-  { network: "tiktok", label: "TikTok", href: "https://tiktok.com" },
+  { network: "facebook", label: "Facebook", href: "https://www.facebook.com/profile.php?id=61595561814183" },
+  { network: "instagram", label: "Instagram", href: "https://www.instagram.com/irya.app/" },
+  { network: "tiktok", label: "TikTok", href: "https://www.tiktok.com/@irya.app" },
 ] as const;
 
 export type SocialNetwork = (typeof socialLinks)[number]["network"];

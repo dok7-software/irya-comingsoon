@@ -28,7 +28,10 @@ export function FaqAccordion({ items }: FaqAccordionProps) {
               aria-expanded={open}
               aria-controls={panelId}
               onClick={() => setOpenIndex(open ? null : index)}
-              className="flex w-full items-center justify-between gap-7.5 py-8.75 pr-8.75 pl-5 text-left font-heading text-h4 leading-[1.2] font-medium tracking-[-0.06em] desktop:text-h4-lg"
+              className={cn(
+                "flex w-full items-center justify-between gap-7.5 pt-8.75 pr-8.75 pl-5 text-left font-heading text-h4 leading-[1.2] font-medium tracking-[-0.06em] desktop:text-h4-lg",
+                open ? "pb-5" : "pb-8.75",
+              )}
             >
               {item.question}
               <ChevronDownSquareIcon
@@ -47,7 +50,7 @@ export function FaqAccordion({ items }: FaqAccordionProps) {
               )}
             >
               <div className="overflow-hidden">
-                <p className="-mt-3.75 pr-8.75 pb-8.75 pl-5 text-body font-medium text-neutral-700">{item.answer}</p>
+                <p className="pr-8.75 pb-8.75 pl-5 text-body font-medium text-neutral-700">{item.answer}</p>
               </div>
             </div>
           </li>
